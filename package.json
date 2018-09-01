@@ -1,0 +1,25 @@
+{
+  "name": "delay-proxy",
+  "version": "0.0.1",
+  "description": "Development server to simulate slow bandwidth",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/topheman/delay-proxy.git"
+  },
+  "keywords": [
+    "proxy",
+    "delay",
+    "timeout",
+    "serve"
+  ],
+  "author": "Christophe Rosset <tophe@topheman.com> (http://labs.topheman.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/topheman/delay-proxy/issues"
+  },
+  "homepage": "https://github.com/topheman/delay-proxy#readme"
+}
