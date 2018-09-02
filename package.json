@@ -4,11 +4,15 @@
   "description": "Development server to simulate slow bandwidth",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "npx eslint .",
+    "test": "echo 'No Unit tests yet'",
+    "test:precommit": "npm test",
+    "pretty": "npx prettier --write '**/*.{js,jsx,json,css,scss}'",
+    "precommit": "lint-staged && npm run lint && npm run test:precommit"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/topheman/delay-proxy.git"
+    "url": "https://github.com/topheman/delay-proxy.git"
   },
   "keywords": [
     "proxy",
@@ -21,5 +25,21 @@
   "bugs": {
     "url": "https://github.com/topheman/delay-proxy/issues"
   },
-  "homepage": "https://github.com/topheman/delay-proxy#readme"
+  "lint-staged": {
+    "**/*.{js,jsx,json,css,scss}": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "homepage": "https://github.com/topheman/delay-proxy#readme",
+  "devDependencies": {
+    "cross-env": "^5.2.0",
+    "eslint": "^5.5.0",
+    "eslint-config-prettier": "^3.0.1",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-prettier": "^2.6.2",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.2.2",
+    "prettier": "1.14.2"
+  }
 }

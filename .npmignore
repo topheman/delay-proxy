@@ -1,0 +1,7 @@
+.editorconfig
+.eslintignore
+.eslintrc
+.prettierignore
+.prettierrc
+.travis.yml
+.vscode

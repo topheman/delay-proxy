@@ -1,0 +1,15 @@
+{
+  "extends": ["eslint:recommended", "plugin:node/recommended", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": "error",
+    "no-console": "off",
+    "import/prefer-default-export": "off",
+    "prefer-template": "off",
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "global-require": "off"
+  },
+  "env": {
+    "node": true
+  }
+}
