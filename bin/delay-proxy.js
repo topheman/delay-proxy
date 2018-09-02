@@ -38,11 +38,24 @@ const makeServer = () => {
       }
 
       if (proxyUrl) {
-        const proxyReq = request(proxyUrl, error => {
-          if (error) {
-            console.error(error);
+        // retrieve original request headers (traffic might be rejected for host mismatch)
+        const { host, ...headers } = req.headers;
+
+        var proxyReq = request(
+          {
+            url: proxyUrl,
+            method: req.method,
+            headers: {
+              ...headers,
+              "X-Forwarded-Host": host
+            }
+          },
+          error => {
+            if (error) {
+              console.error(error);
+            }
           }
-        });
+        );
         if (delay) {
           proxyReq.on("response", proxyRes => {
             proxyRes.pause();
