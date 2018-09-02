@@ -55,7 +55,7 @@
     "my-local-ip": "^1.0.0",
     "request": "^2.88.0"
   },
-  "engines" : {
-    "node" : ">=8.3" 
+  "engines": {
+    "node": ">=8.3"
   }
 }

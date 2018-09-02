@@ -6,6 +6,7 @@ const argv = require("minimist")(process.argv.slice(2));
 const pkg = require("../package.json");
 const request = require("request");
 
+const myLocalIp = require("my-local-ip")();
 const port = argv.p || argv.port || 8001;
 
 const help = () => {
@@ -73,7 +74,12 @@ const makeServer = () => {
       return res.end(`
       Use the /delay/:milliseconds/:url endpoint to delay a response.
 
-      Example of a call: /delay/1000/https://foo.com/baz/bar.jpg
+      Examples of a call:
+      
+        * http://localhost:${port}/delay/1000/https://jsonplaceholder.typicode.com/posts/1/comments
+        * http://${myLocalIp}:${port}/delay/1000/https://jsonplaceholder.typicode.com/posts/1/comments
+        * http://localhost:${port}/delay/2000/https://via.placeholder.com/350x150/F00000/FFFFFF?text=Hello+world!
+        * http://${myLocalIp}:${port}/delay/2000/https://via.placeholder.com/350x150/F00000/FFFFFF?text=Hello+world!
       `);
     }
   });
@@ -95,5 +101,5 @@ makeServer().listen(port, () =>
 {bold delay-proxy} server started
 
   {bold Local:}            http://localhost:{bold ${port}}
-  {bold On Your Network:}  http://${require("my-local-ip")()}:{bold ${port}}`)
+  {bold On Your Network:}  http://${myLocalIp}:{bold ${port}}`)
 );
