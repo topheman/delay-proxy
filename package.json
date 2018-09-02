@@ -1,6 +1,6 @@
 {
   "name": "delay-proxy",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Development server to simulate slow bandwidth",
   "scripts": {
     "dev": "npx nodemon ./bin/delay-proxy.js",
