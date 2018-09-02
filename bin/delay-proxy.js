@@ -4,6 +4,7 @@ const http = require("http");
 const chalk = require("chalk");
 const argv = require("minimist")(process.argv.slice(2));
 const pkg = require("../package.json");
+const request = require("request");
 
 const port = argv.p || argv.port || 8001;
 
@@ -27,13 +28,34 @@ const help = () => {
 
 const makeServer = () => {
   return http.createServer((req, res) => {
-    // console.log(req.url);
     const match = req.url.match(/^\/delay\/(\d+)\/(.*)/);
     if (match) {
       let delay = parseInt(match[1], 10);
-      let proxyUrl = match[2];
-      // console.log(delay, proxyUrl);
-      return res.end(`hello world ${delay} ${proxyUrl}`);
+      const proxyUrl = match[2];
+
+      if (isNaN(delay) || delay < 0 || delay > 20000) {
+        delay = 0;
+      }
+
+      if (proxyUrl) {
+        const proxyReq = request(proxyUrl, error => {
+          if (error) {
+            console.error(error);
+          }
+        });
+        if (delay) {
+          proxyReq.on("response", proxyRes => {
+            proxyRes.pause();
+            setTimeout(() => {
+              proxyRes.pipe(res);
+            }, delay);
+          });
+        } else {
+          req.pipe(proxyReq).pipe(res);
+        }
+      } else {
+        return res.end(`No url specified`);
+      }
     } else {
       return res.end(`
       Use the /delay/:milliseconds/:url endpoint to delay a response.
