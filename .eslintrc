@@ -2,6 +2,7 @@
   "extends": ["eslint:recommended", "plugin:node/recommended", "prettier"],
   "plugins": ["prettier"],
   "rules": {
+    "node/shebang": "off",
     "prettier/prettier": "error",
     "no-console": "off",
     "import/prefer-default-export": "off",

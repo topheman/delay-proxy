@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "npx nodemon ./bin/delay-proxy.js",
     "lint": "npx eslint .",
+    "generate-changelog": "./bin/generate-changelog.js",
     "test": "echo 'No Unit tests yet'",
     "test:precommit": "npm test",
     "pretty": "npx prettier --write '**/*.{js,jsx,json,css,scss}'",
@@ -40,11 +41,14 @@
   },
   "homepage": "https://github.com/topheman/delay-proxy#readme",
   "devDependencies": {
+    "commander": "^2.17.1",
     "cross-env": "^5.2.0",
     "eslint": "^5.5.0",
     "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-prettier": "^2.6.2",
+    "generate-changelog": "^1.7.1",
+    "github-url-from-git": "^1.5.0",
     "husky": "^0.14.3",
     "lint-staged": "^7.2.2",
     "nodemon": "^1.18.4",

@@ -5,3 +5,4 @@
 .prettierrc
 .travis.yml
 .vscode
+bin/generate-changelog.js

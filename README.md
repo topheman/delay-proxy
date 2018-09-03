@@ -92,7 +92,8 @@ This will launch the server and reload it when you update the source code, thank
 
 ### Contributing guidelines
 
-- follow the [AngularJS git commit guidelines](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits) for your commit messages
+- follow the [AngularJS git commit guidelines](https://github.com/angular/angular.js/blob/master/DEVELOPERS.md#commits) for your commit messages (it make it easier to generate changelog)
+  - to generate changelog: `npm run generate-changelog -- v1.1.0 v1.2.0`
 - your code will automatically be:
   - linted by [eslint](https://eslint.org/)
   - formatted by [prettier](https://prettier.io/)
