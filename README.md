@@ -10,7 +10,7 @@ You may know and use the chrome dev tools and its _Network_ tab where you can [e
 
 With `delay-proxy`, you can proxy your requests specifying a delay and a url.
 
-http://localhost:8001/delay/\<delay-in-ms>/\<url>
+http://localhost:8001/delay/{delay-in-ms}/{url}
 
 Example calls:
 
