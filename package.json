@@ -16,6 +16,7 @@
   "bin": {
     "delay-proxy": "./bin/delay-proxy.js"
   },
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/topheman/delay-proxy.git"

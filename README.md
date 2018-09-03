@@ -19,7 +19,9 @@ Example calls:
 
 ## Usage
 
-### Install globally
+### Command line
+
+#### Install globally
 
 ```shell
 npm install -g delay-proxy
@@ -37,7 +39,7 @@ Available options:
 - `delay-proxy --version`
 - `delay-proxy --port 9000`: lets you specify which port you want to use (default: `8001`)
 
-### Install locally
+#### Install locally
 
 You might not like to install the package globally or wanna ship and use this package as a dev dependency in your project:
 
@@ -49,6 +51,25 @@ Run it using [npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-
 
 ```shell
 npx delay-proxy
+```
+
+### As a module
+
+`delay-proxy` also works as a required module.
+
+```js
+const PORT = 8001;
+const LOCAL_IP = require("my-local-ip")(); // optional
+
+const { makeServer } = require("delay-proxy");
+
+makeServer({ port: PORT, localIp: LOCAL_IP }).listen(PORT, () =>
+  console.log(
+    "delay-proxy now listening on",
+    `http://localhost:${PORT}`,
+    `${LOCAL_IP}:${PORT}`
+  )
+);
 ```
 
 ## Contributing

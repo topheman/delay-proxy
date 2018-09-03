@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
-const http = require("http");
 const chalk = require("chalk");
 const argv = require("minimist")(process.argv.slice(2));
 const pkg = require("../package.json");
-const request = require("request");
 
 const myLocalIp = require("my-local-ip")();
+
+const { makeServer } = require("../index");
+
 const port = argv.p || argv.port || 8001;
 
 const help = () => {
@@ -27,64 +28,6 @@ const help = () => {
   `);
 };
 
-const makeServer = () => {
-  return http.createServer((req, res) => {
-    const match = req.url.match(/^\/delay\/(\d+)\/(.*)/);
-    if (match) {
-      let delay = parseInt(match[1], 10);
-      const proxyUrl = match[2];
-
-      if (isNaN(delay) || delay < 0 || delay > 20000) {
-        delay = 0;
-      }
-
-      if (proxyUrl) {
-        // retrieve original request headers (traffic might be rejected for host mismatch)
-        const { host, ...headers } = req.headers;
-
-        var proxyReq = request(
-          {
-            url: proxyUrl,
-            method: req.method,
-            headers: {
-              ...headers,
-              "X-Forwarded-Host": host
-            }
-          },
-          error => {
-            if (error) {
-              console.error(error);
-            }
-          }
-        );
-        if (delay) {
-          proxyReq.on("response", proxyRes => {
-            proxyRes.pause();
-            setTimeout(() => {
-              proxyRes.pipe(res);
-            }, delay);
-          });
-        } else {
-          req.pipe(proxyReq).pipe(res);
-        }
-      } else {
-        return res.end(`No url specified`);
-      }
-    } else {
-      return res.end(`
-      Use the /delay/:milliseconds/:url endpoint to delay a response.
-
-      Examples of a call:
-      
-        * http://localhost:${port}/delay/1000/https://jsonplaceholder.typicode.com/posts/1/comments
-        * http://${myLocalIp}:${port}/delay/1000/https://jsonplaceholder.typicode.com/posts/1/comments
-        * http://localhost:${port}/delay/2000/https://via.placeholder.com/350x150/F00000/FFFFFF?text=Hello+world!
-        * http://${myLocalIp}:${port}/delay/2000/https://via.placeholder.com/350x150/F00000/FFFFFF?text=Hello+world!
-      `);
-    }
-  });
-};
-
 if (argv.h || argv.help) {
   help();
   return;
@@ -96,7 +39,7 @@ if (argv.v || argv.version) {
 }
 
 // create and launch server
-makeServer().listen(port, () =>
+makeServer({ port, localIp: myLocalIp }).listen(port, () =>
   console.log(chalk`
 {bold delay-proxy} server started
 
