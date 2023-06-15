@@ -39,7 +39,7 @@ const makeServer = ({ port, localIp }) => {
           }
         );
         if (delay) {
-          proxyReq.on("response", proxyRes => {
+          req.pipe(proxyReq).on("response", proxyRes => {
             proxyRes.pause();
             setTimeout(() => {
               proxyRes.pipe(res);
